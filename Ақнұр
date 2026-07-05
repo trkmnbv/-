@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сұрақ</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: #1a1a2e;
+    color: #fff;
+    overflow: hidden;
+  }
+  .card {
+    text-align: center;
+    padding: 40px;
+  }
+  h1 {
+    font-size: 28px;
+    margin-bottom: 40px;
+    font-weight: 600;
+  }
+  .buttons {
+    position: relative;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    min-height: 60px;
+  }
+  button {
+    font-size: 18px;
+    padding: 14px 36px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  #yes {
+    background: #4caf50;
+    color: white;
+    transition: transform 0.15s ease;
+  }
+  #yes:hover { transform: scale(1.05); }
+  #no {
+    background: #e74c3c;
+    color: white;
+    position: relative;
+  }
+  #result {
+    margin-top: 30px;
+    font-size: 20px;
+    min-height: 30px;
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Ақнұр мені кешіресің ба?</h1>
+  <div class="buttons" id="buttonArea">
+    <button id="yes">Ия</button>
+    <button id="no">Жоқ</button>
+  </div>
+  <div id="result"></div>
+</div>
+
+<script>
+  const noBtn = document.getElementById('no');
+  const yesBtn = document.getElementById('yes');
+  const area = document.getElementById('buttonArea');
+  const result = document.getElementById('result');
+
+  // "Жоқ" батырмасы курсор жақындаса қашады
+  function moveButton() {
+    const areaRect = area.getBoundingClientRect();
+    const btnW = noBtn.offsetWidth;
+    const btnH = noBtn.offsetHeight;
+
+    // Экран шекарасында кездейсоқ жаңа орын
+    const maxX = window.innerWidth - btnW - 20;
+    const maxY = window.innerHeight - btnH - 20;
+
+    const newX = Math.max(20, Math.random() * maxX);
+    const newY = Math.max(20, Math.random() * maxY);
+
+    noBtn.style.position = 'fixed';
+    noBtn.style.left = newX + 'px';
+    noBtn.style.top = newY + 'px';
+  }
+
+  // Тышқан жақындағанда қашу (hover көрінгенде іске қосылады)
+  noBtn.addEventListener('mouseenter', moveButton);
+  noBtn.addEventListener('mousemove', moveButton);
+  noBtn.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    moveButton();
+  });
+
+  yesBtn.addEventListener('click', () => {
+    result.textContent = 'Рахмет! ❤️';
+  });
+</script>
+
+</body>
+</html>
